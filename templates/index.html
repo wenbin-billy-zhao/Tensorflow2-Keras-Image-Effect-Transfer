@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Virtual Artist - A Style Transfer Web App</title>
+    <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <!-- <style>
+        article, aside, figure, footer, header, hgroup, 
+        menu, nav, section { display: block; }
+      </style> -->
 
 </head>
 <body>
@@ -30,22 +37,95 @@
           
           <div class="row">
             <div class="side">
-              <h2>Select Artist</h2>
-              <h5>Main Artist</h5>
-              <div class="fakeimg" style="height:200px;">Image</div>
-              <p>reference image for style training</p>
-              <h3>Trained Model: VGG19</h3>
-              <p>apply the style above.</p>
-              <div class="fakeimg" style="height:60px;">Style Image1</div><br>
-              <div class="fakeimg" style="height:60px;">Style Image2</div><br>
-              <div class="fakeimg" style="height:60px;">Style Image3</div>
+              <h2>Select Your Style</h2>
+              <p>Select based off of an artist, an art piece's title, or by the art piece</p>
+              <p>Or upload your own style!</p>
+              <!-- upload image -->
+              <form action="/action_page.php" class="content-path">
+                <input type='file' onchange="readURLstyle(this);" />
+                <img id="style-image" src="#" alt="" />
+                <br>
+              </form>
+
+              <br>
+              <!-- <input type="submit"> -->
+              <!-- Artists selection dropdown -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Artist
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div> <!--dropdown-menu-->
+              </div> <!--btn-group-->
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Art Piece
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div> <!--dropdown-menu-->
+              </div> <!--btn-group-->
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Art Work
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div> <!--dropdown-menu-->
+              </div> <!--btn-group-->
+              <!-- End of artist selection dropdown -->
+              <!-- style image display -->
+              <div class="style_image">
+                <img class = "image" id="style-place-holder" src="https://uploads4.wikiart.org/images/rembrandt/christ-in-the-storm-1633.jpg!PinterestSmall.jpg" alt=""> 
+              </div>
+              <p class="image">reference image for style training</p>
+
+              <!-- iterations -->
+              <h3>Quality</h3>
+              <p>Select the quality of the transfer you'd like</p>
+              <div class="iterations" style="height:60px;">
+                <button>Low</button>
+                <button>Moderate</button>
+                <button>High</button>
+              </div>
             </div>
+            
             <div class="main">
-              <h2>Upload Image1</h2>
+              <h2>Upload Your Desired Image</h2>
               <h5>Target image for rendering</h5>
-              <div class="fakeimg" style="height:200px;">Image</div>
+              <!-- content show image upon upload -->
+              <form action="/action_page.php" class="content-path">
+                <input type='file' onchange="readURLcontent(this);" />
+                <br>
+                <img id="content-image" src="#" alt="" />
+                <br>
+              </form>
+              <!--content image display -->
+              <div class="content-place-holder" >
+                  <img id="content-place-holder" src="../static/content_images/archway.jpeg" alt="">
+              </div>
+              
               <p>Process:</p>
-              <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+
+              <!-- fimal submit -->
+              <form method=post enctype=multipart/form-data>
+                <p><input type=file name=file>
+                <p><input type=file name=contentfile>
+                   <input type=submit value=Upload>
+              </form>
               <br>
               <h2>Result Image</h2>
               <h5>After training the result showed this</h5>
@@ -62,7 +142,9 @@
       <p>Credit and Sighitings: reference to sites and github repos</p>
     </div>  
 
+    <script type="text/javascript" src="static/js/logic.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-</body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
