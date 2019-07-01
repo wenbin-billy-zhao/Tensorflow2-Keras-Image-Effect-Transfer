@@ -49,9 +49,9 @@ def upload_file():
     if request.method == 'POST':
         print(request)
 
-        if request.files.get('file'):
+        if request.files.get('style'):
             # read the file
-            file = request.files['file']
+            file = request.files['style']
             print(file)
             # read the filename
             filename = file.filename
@@ -59,9 +59,9 @@ def upload_file():
 
             # Save the file to the uploads folder
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        if request.files.get('contentfile'):
+        if request.files.get('content'):
             # read the file
-            file = request.files['contentfile']
+            file = request.files['content']
             print(file)
             # read the filename
             contentfilename = file.filename
