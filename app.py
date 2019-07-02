@@ -16,6 +16,7 @@ from flask import (
     url_for,
     session,
     render_template,
+    send_from_directory,
     jsonify,
     request)
 
@@ -48,51 +49,41 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         print(request)
-
+        # get quality
+        data = request.form['quality']
+        # get style
         if request.files.get('style'):
-            # read the file
             file = request.files['style']
             print(file)
-            # read the filename
             filename = file.filename
-            
-
-            # Save the file to the uploads folder
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # get content
         if request.files.get('content'):
-            # read the file
             file = request.files['content']
             print(file)
-            # read the filename
             contentfilename = file.filename
 
-            # Save the file to the uploads folder
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], contentfilename))
-            return render_template("index.html")
+            try:
+                return render_template("index.html", contentfilename =( f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data)
+            except: 
+                return render_template("index.html", contentfilename = ( f'uploads/{contentfilename}'))
 
     return render_template("form.html")
-# @app.route("/upload")
-# def init():
-#     try:
-#         # Use Pandas to perform the sql query
-#         time_stmt = db.session.query(initTime).statement
-#         time_df = pd.read_sql_query(time_stmt, db.session.bind)
-#         time_data = {
-#             "content": time_df.date.values.tolist(),
-#             "style": time_df.tacos.values.tolist(),
-#             "qualirt": time_df.sandwiches.values.tolist(),
-
-#         }
-
-#         session['keywords'] = ['tacos','sandwiches','kebabs']
-
-#         # Results
-#         return jsonify(time_data)
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
    if request.method == 'POST':
       result = request.form
       return render_template(".html",result = result)
+
+# @app.route('/show/<filename>')
+# def uploaded_file(filename):
+#     filename = 'http://127.0.0.1:5000/uploads/' + filename
+#     return render_template('index.html', filename=filename)
+
+@app.route('/uploads/<filename>')
+def send_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/run_transfer")
 def run_transfer(inputValue):

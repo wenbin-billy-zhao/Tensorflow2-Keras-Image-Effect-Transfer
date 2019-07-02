@@ -32,13 +32,32 @@ function readURLcontent(input) {
 }
 // --------------------------------------------------------------------------
 
-// save images, pull, and update html page
+// upon launching of index.html
+var contentPath;
+var stylePath;
+var quality;
+function update() {
+    quality = document.getElementById("iterations");
+    quality.innerHTML = quality.innerText || quality.textContent;
+    contentPath = document.getElementById("content-path");
+    contentPath.innerHTML = contentPath.innerText || contentPath.textContent;
+    stylePath = document.getElementById("style-path")
+    stylePath.innerHTML = stylePath.innerText || stylePath.textContent;
+    console.log(quality.innerHTML)
+    console.log(contentPath.innerHTML)
+    console.log(stylePath.innerHTML)
+    console.log("running update")
 
-// var submit = d3.select("#submit");
+    document.getElementById("content-place-holder").src=contentPath.innerHTML;
+    document.getElementById("style-place-holder").src=stylePath.innerHTML;
 
-// submit.on("click", async function() {
-//     d3.event.preventDefault();
-//     // const contentFile = d3.select("#keywords");
-//     // const styleFile = d3.select("#keywords");
-//     // const quality = d3.select("#keywords");
-// )}
+    if (quality.innerHTML == "10") {
+        document.getElementById("low").removeAttribute("hidden")
+    }
+    else if (quality.innerHTML == "100") {
+        document.getElementById("moderate").removeAttribute("hidden")
+    }
+    else {
+        document.getElementById("high").removeAttribute("hidden")
+    }
+}

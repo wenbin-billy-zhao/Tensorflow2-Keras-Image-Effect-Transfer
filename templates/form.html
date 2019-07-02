@@ -30,10 +30,10 @@
               <h2>Quality</h2>
               <p>Select the quality of the transfer you'd like</p>
               <div class="iterations" style="height:60px;">
-                
-                <button>Low</button>
-                <button>Moderate</button>
-                <button>High</button>
+                <form method=post enctype=multipart/form-data>
+                    <input type="radio" name="quality" value="10" checked> Low<br>
+                    <input type="radio" name="quality" value="100"> Moderate<br>
+                    <input type="radio" name="quality" value="500"> High<br><br>
               </div>          
               <br>      
               <h2>Select Your Style</h2>
@@ -52,7 +52,7 @@
                   <a class="dropdown-item" href="#">Art Work</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">
-                        <form method=post enctype=multipart/form-data >
+                    
                     <input type='file' onchange="readURLstyle(this);" name="style"/>
                     <img id="style-image" src="#" alt="" />
                     </a>
