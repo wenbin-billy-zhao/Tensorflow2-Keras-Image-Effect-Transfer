@@ -84,9 +84,9 @@ def result():
 @app.route("/art_data")
 def data():
     art_data = {
-            "artist": art_df.Artists.values.tolist(),
-            "art title": art_df.Piece_Title.values.tolist(),
-            "art image": art_df.Art_Piece.values.tolist()
+        "art_image": art_df.Art_Piece.values.tolist(),
+        "art_title": art_df.Piece_Title.values.tolist(),
+        "artist": art_df.Artists.values.tolist()
         }
     return jsonify(art_data)
 
