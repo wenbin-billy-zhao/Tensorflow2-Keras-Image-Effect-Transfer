@@ -9,6 +9,8 @@ from transfer_tools import (
     run_style_transfer
 )
 
+import json
+
 from flask import (
     Flask,
     flash,
@@ -31,6 +33,9 @@ app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
 app.config['UPLOAD_FOLDER'] = 'uploads'
+
+# read in csv
+art_df = pd.read_csv("static/csv/artist_and_art_titles.csv")
 
 # enable eager execution
 tf.enable_eager_execution()
@@ -76,10 +81,14 @@ def result():
       result = request.form
       return render_template(".html",result = result)
 
-# @app.route('/show/<filename>')
-# def uploaded_file(filename):
-#     filename = 'http://127.0.0.1:5000/uploads/' + filename
-#     return render_template('index.html', filename=filename)
+@app.route("/art_data")
+def data():
+    art_data = {
+            "artist": art_df.Artists.values.tolist(),
+            "art title": art_df.Piece_Title.values.tolist(),
+            "art image": art_df.Art_Piece.values.tolist()
+        }
+    return jsonify(art_data)
 
 @app.route('/uploads/<filename>')
 def send_file(filename):
