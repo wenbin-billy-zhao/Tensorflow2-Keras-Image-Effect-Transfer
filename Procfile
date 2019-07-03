@@ -1,1 +1,1 @@
-web: gunicorn Pursuit_monkey.app:app
+web: gunicorn app:app
