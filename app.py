@@ -33,7 +33,9 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 tf.enable_eager_execution()
 print("Eager execution: {}".format(tf.executing_eagerly()))
 
-tt.save_vgg_to_file()
+#Ran this only once to save the model to a json file.
+#tt.save_vgg_to_file()
+
 stm = StyleTransferModel()
 
 #################################################
