@@ -56,12 +56,20 @@ def upload_file():
         print(request)
         # get quality
         data = request.form['quality']
+
+        # selected style from library
+        style2 = request.form['style-library-selected']
+        print(style2)
+
         # get style
         if request.files.get('style'):
             file = request.files['style']
             print(file)
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        
+
+
         # get content
         if request.files.get('content'):
             file = request.files['content']
@@ -69,10 +77,12 @@ def upload_file():
             contentfilename = file.filename
 
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], contentfilename))
+            # if filename:
             try:
                 return render_template("index.html", contentfilename =( f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data)
-            except: 
-                return render_template("index.html", contentfilename = ( f'uploads/{contentfilename}'))
+            # if style2:
+            except:
+                return render_template("index.html", contentfilename =( f'uploads/{contentfilename}'), filename=style2, quality=data)
 
     return render_template("form.html")
 @app.route('/result',methods = ['POST', 'GET'])

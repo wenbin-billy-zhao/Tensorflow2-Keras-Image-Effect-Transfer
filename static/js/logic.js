@@ -32,23 +32,36 @@ var counter2 = 0
     //  append to the table using a function to loop through all data
     art_arrays.forEach((product) =>{
     row = tbody.append("tr");
+    row.attr("class", "clickable-row")
+    row.attr("onClick", "styleSelect(this.id);")
     for (key in product){
         counter = counter + 1
         const cell = row.append("td");
-        row.attr("type", "radio")
-        row.attr("class", "style")
+        
         cell.text(product[key]);
         cell.attr('id', product[key]);
         if (counter==2) {
             cell.append("br")
+            const style_select = cell.append("input")
+            style_select.attr("type", "radio")
+            style_select.attr("name", "style-library")
+            style_select.attr("onclick", "styleSelect()")
             const img = cell.append("img")
             img.attr('src', art_pieces[counter2])
+            row.attr("id", art_pieces[counter2])
+            style_select.attr("id", art_pieces[counter2])
             counter2 = counter2 + 1
             counter = 0
         }
     };
 });
 }
+
+
+function styleSelect(link){
+    document.getElementById("style-library-selected").value=link;
+    console.log(link)
+
 
 // --------------------------------------------------------------------------
 
