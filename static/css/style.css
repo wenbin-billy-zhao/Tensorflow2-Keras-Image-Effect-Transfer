@@ -28,6 +28,7 @@ body {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  z-index: 1;
 }
 
 /* Style the navigation bar links */
@@ -73,6 +74,14 @@ body {
   flex: 30%;
   background-color: #f1f1f1;
   padding: 20px;
+  text-align: center;
+}
+
+/* style image */
+.image {
+  padding: 20px;
+  text-align: center;
+  width: 100%;
 }
 
 /* Main column */
@@ -110,4 +119,22 @@ body {
     float: none;
     width: 100%;
   }
+}
+
+
+/* submit style button */
+.submit {
+  text-align: center;
+  font-size: 30px;
+  width: 100%;
+}
+
+/* content place holder image */
+#content-place-holder {
+  width: 400px;
+  text-align: center;
+}
+
+.main {
+  text-align: center
 }
