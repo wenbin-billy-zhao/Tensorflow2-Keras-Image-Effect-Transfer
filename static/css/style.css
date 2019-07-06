@@ -10,7 +10,7 @@ body {
 
 /* Header/logo Title */
 .header {
-  padding: 80px;
+  padding: 20px;
   text-align: center;
   background: #137562;
   color: white;
@@ -36,7 +36,7 @@ body {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 20px;
+  padding: 2px 20px;
   text-decoration: none;
 }
 
@@ -66,6 +66,13 @@ body {
   flex-wrap: wrap;
 }
 
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .side {
@@ -90,6 +97,24 @@ body {
   padding: 20px;
 }
 
+/* Container for images */
+.container-fluid {
+  border: #aaa 1px;
+}
+
+.container-fluid img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/* Real image */
+.content-img {
+  /* background-color: #aaa; */
+  float: left;
+  width: 100%;
+  padding: 2px;
+}
+
 /* Footer */
 .footer {
   padding: 20px;
@@ -111,3 +136,5 @@ body {
     width: 100%;
   }
 }
+
+input { display: inline; }

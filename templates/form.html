@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css"><!-- custom bootstrap theme css, for reference: https://bootswatch.com/sketchy/ -->
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <title>Virtual Artist - A Style Transfer Web App</title>
+  
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+
+</head>
+<body onload="pullData()">
+
+  <!-- <div class="header" href="/"> -->
+  <div class="header">
+    <h1>Virtual AI Artist</h1>
+    <h3>A Machine Learning Style Transfer Web App</h3>
+  </div>
+
+  <!-- <br> -->
+
+  <div class="container-fluid">
+          
+    <div class="navbar">
+      <a href="index.html">Home</a>
+      <a href="form.html" class="active">Form</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="style.html" class="right">About Style Transfer</a>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Step 1: Select Your Artistic Style</h2>
+        <h5>Choose from our library or load your own!</h5>
+
+        <!-- <br> -->
+
+        <!-- Large modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="margin-left:60px;">Library</button>
+
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <table id="library" class="table">
+            <thead>
+                <tr>
+                    <!-- <th scope="col">Index</th> -->
+                    <th scope="col">Artist</th>
+                    <!-- <th scope="col">Artist Work</th> -->
+                    <th scope="col">Artist Title</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+      </div>
+
+      <!-- Artists selection dropdown -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Upload Your Own
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">
+            <input type='file' onchange="readURLstyle(this);" name="style"/>
+            <img id="style-image" src="#" alt="" />
+            </a>
+        </div> <!--dropdown-menu-->
+      </div> <!--btn-group-->
+
+      <br><br>
+
+      <!-- End of artist selection dropdown -->
+      <!-- style image display -->
+      <div id="carouselExampleIndicators" class="carousel slide style_image" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="https://uploads5.wikiart.org/images/jackson-pollock/going-west.jpg!PinterestSmall.jpg" alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="https://uploads8.wikiart.org/images/antoine-watteau/diana-at-her-bath-1716.jpg!PinterestSmall.jpg" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="https://uploads2.wikiart.org/00116/images/nicolas-poussin/the-dance-to-the-music-of-time-c-1640.jpg!PinterestSmall.jpg" alt="Third slide">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+      </div>
+
+      <div class="col-md-4">
+        <h2>Step 2: Upload Original Image</h2>
+        <h5>This is the image you want to restyle</h5>
+        <!-- content show image upon upload -->
+        <!-- Artists selection dropdown -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-left:40px;">
+              Upload Your Own
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">
+            <input type='file' onchange="readURLcontent(this);" name="content" />   
+            <!-- <img id="content-image" src="" Height="300px" width="250px" alt="" /> -->
+            <img id="content-image" src="" alt="" />
+            </a>
+          </div>
+        </div>
+        <br>
+        <br>
+        <!--content image display -->
+        <div class="content-img">
+            <br>
+          <img id="img-fluid" src="#" alt="">
+        </div>
+        </form>   
+      </div>         
+
+      <div class="col-md-4">
+          <h2>Step 3: Start the Image Processing</h2>
+          <h5>Click on image to download!</h5>
+          <!-- <div class="row" -->
+          <div class="btn-group">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="margin-left:60px;">Library</button> -->
+              <input type="button" class="btn btn-danger" onclick="run_transfer();" value="Press to Start" aria-haspopup="true" aria-expanded="false" style="margin-left:60px;" />
+          </div>
+
+          <br>
+          <br>
+
+          <div class="content-img">
+            <div id="output"></div>
+            <a download="custom-filename.jpg" href="../static/output_images/output.jpg" title="ImageName">
+              <img class="img-fluid" src="../static/output_images/output.jpg" alt="../static/content_images/archway.jpeg">
+            </a>
+
+              <!-- <a href="../images/seaport.jpg" download>
+                <img id="content-place-holder" src="../static/content_images/archway.jpeg" class="img-fluid" style="height:450px;" alt="Sample Image"></img>
+              </a> -->
+          </div><br>
+      </div>
+
+    </div>
+
+    </div>  
+      
+    <div class="footer">
+      <h4>&copy;2019 - The Minority Majority Team</h4>
+      <p>Credit and Sighitings: reference to sites and github repos</p>
+    </div>  
+
+    <script type="text/javascript" src="static/js/logic.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

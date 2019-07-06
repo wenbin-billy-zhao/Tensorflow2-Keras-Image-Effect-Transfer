@@ -23,9 +23,12 @@ def show_results(best_img, content_path, style_path, show_large_final=True):
     plt.subplot(1, 2, 2)
     image_show(style, 'Style Image')
 
+
+
     if show_large_final: 
         plt.figure(figsize=(10, 10))
 
         plt.imshow(best_img)
         plt.title('Output Image')
+        imwrite(best_img, '../static/output_images/output.jpg')
         plt.show()

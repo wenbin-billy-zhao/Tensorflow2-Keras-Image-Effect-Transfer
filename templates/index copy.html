@@ -28,7 +28,7 @@
     <div class="navbar">
       <a href="index.html" class="active">Home</a>
       <a href="form.html">Form</a>
-      <a href="gallery.html"class="active">Gallery</a>
+      <a href="result.html">Result</a>
       <a href="style.html" class="right">About Style Transfer</a>
     </div>
     <br>
@@ -42,21 +42,36 @@
         <h3>Quality</h3>
         <h5>Target image for rendering</h5>
 
-        <div class="iterations" style="height:60px;">
+        <div class="iterations" style="height:0px;">
           <p id="low" hidden>LOW<br>Less is more, we agree.</p>
           <p id="moderate" hidden>MODERATE<br>Goldilocks knew what she was doing, and so do you!</p>
           <p id="high" hidden>HIGH<br>Quality over quantity, we like it!</p>
         </div>
 
-        <h2>We Like Your Style</h2>
+        <!-- <h2>We Like Your Style</h2> -->
         <!-- style image display -->
         <p hidden id="content-path">{{contentfilename}}</p>
         <p hidden id="style-path">{{filename}}</p>
         <p hidden id="iterations">{{quality}}</p>
         <div class="style_image">
-          <img class = "image" id="style-place-holder" src="https://uploads4.wikiart.org/images/rembrandt/christ-in-the-storm-1633.jpg!PinterestSmall.jpg" alt="">
-          <!-- <img class = "content-img" style="height:450px;" id="style-place-holder" src="https://uploads4.wikiart.org/images/rembrandt/christ-in-the-storm-1633.jpg!PinterestSmall.jpg" alt="">  -->
+          <img class = "content-img" style="height:450px;" id="style-place-holder" src="https://uploads4.wikiart.org/images/rembrandt/christ-in-the-storm-1633.jpg!PinterestSmall.jpg" alt=""> 
         </div>
+
+        <!-- <div class="content-img" style="height:450px;">
+          <img id="style-img" src="https://uploads4.wikiart.org/images/rembrandt/christ-in-the-storm-1633.jpg!PinterestSmall.jpg" class="img-fluid" style="width:100%" alt="Sample Image"></img>
+          <br>
+          <select id="content-select" class="centered custom-select">
+            <option value="" disabled>Select content</option>
+            <option value="pic">Take a picture</option>
+            <option value="file">Select from file</option>
+            <option value="stata">stata</option>
+            <option value="diana">diana</option>
+            <option value="golden_gate">golden_gate</option>
+            <option value="beach">beach</option>
+            <option value="chicago" selected="selected">chicago</option>
+            <option value="statue_of_liberty">statue_of_liberty</option>
+          </select>
+        </div><br> -->
       </div>
         
       <div class="col-md-4">
@@ -64,10 +79,26 @@
         <h3>Cool Content</h3>
         <h5 id="cool-content">Styling applied to target image</h5>
         <!-- <h5>Artist style to be applied</h5> -->
+
         <div class="content-place-holder" >
-            <img id="content-place-holder" src="../static/content_images/archway.jpeg" alt="">
-            <!-- <img class = "content-img" style="height:450px;" id="content-place-holder" src="../static/content_images/archway.jpeg" alt=""> -->
+            <img class = "content-img" style="height:450px;" id="content-place-holder" src="../static/content_images/archway.jpeg" alt="">
         </div>
+
+        <!-- <div class="content-img" style="height:450px;">
+          <img id="style-img" src="../static/content_images/archway.jpeg" class="img-fluid" style="width:100%" alt="Style Image"></img>
+          <br>
+          <select id="content-select" class="centered custom-select">
+            <option value="" disabled>Select content</option>
+            <option value="pic">Take a picture</option>
+            <option value="file">Select from file</option>
+            <option value="stata">stata</option>
+            <option value="diana">diana</option>
+            <option value="golden_gate">golden_gate</option>
+            <option value="beach">beach</option>
+            <option value="chicago" selected="selected">chicago</option>
+            <option value="statue_of_liberty">statue_of_liberty</option>
+          </select>
+        </div><br> -->
       </div>
 
       <div class="col-md-4">

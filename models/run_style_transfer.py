@@ -115,3 +115,4 @@ def run_style_transfer(content_path,
         plt.yticks([])
 
     return best_img, best_loss 
+    Image.fromarray(best).convert("RGB").save("static/output_images/output.jpg")
