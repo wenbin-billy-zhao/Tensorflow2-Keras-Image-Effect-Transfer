@@ -121,9 +121,17 @@ def run_transfer(inputValue):
                     'block5_conv1'
                ]
 
-    best, best_loss = run_style_transfer(content_path, 
+    best, best_loss = run_style_transfer(imgs, content_path, 
                                      style_path, num_iterations=3)
 
+    for i,img in enumerate(imgs):
+        actual_img = Image.fromarray(img)
+        file_name = 'static/images/gen/nst'+str(i)+'.png'
+        actual_img.save(file_name)
+
+    actual_img = Image.fromarray(best)
+    file_name = f'static/result/{input_name}.png'
+    actual_img.save(file_name)   
 
 if __name__ == "__main__":
     app.run(debug=True)
