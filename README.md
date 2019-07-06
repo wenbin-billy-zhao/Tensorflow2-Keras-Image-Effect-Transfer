@@ -9,15 +9,16 @@ This list is largely sequencial, but some tasks are either run parally or can be
 
 ### Front End: Flask Website
 1. Build a simple unstyled page that take input and return argument to flask app
-	- [ ] a. Artist/Style selector - a drop down list (we can change this later) show the list of artists complied from Jamie, once picked on-click return a value back to flask - verify result using console.log, also use flask to print out the variable choice
+	- [x] a. Artist/Style selector - a drop down list (we can change this later) show the list of artists complied from Jamie, once picked on-click return a value back to flask - verify result using console.log, also use flask to print out the variable choice
+changed style to a modal 
 	
-	- [ ] b. Content selector - a list of random images to be applied by style transfer - once selected, verify result by console.log - also flask print out variable
+	- [x] b. Content selector - a list of random images to be applied by style transfer - once selected, verify result by console.log - also flask print out variable
 	
-	- [ ] c. Submit button - that calls flask to excute style transfer (we don't have to worry about transition yet)
+	- [x] c. Submit button - that calls flask to excute style transfer (we don't have to worry about transition yet)
 	
-	- [ ] d. Show result images
+	- [x] d. Show result images
 	
-	- [ ] e. decides on the web structure - root - train - result - explain - about
+	- [x] e. decides on the web structure - root - train - result - explain - about
 	
 	- [ ] f. stylize the website - applying color and theme elements
 
