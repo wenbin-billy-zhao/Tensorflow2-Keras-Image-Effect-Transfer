@@ -19,6 +19,8 @@ import functools
 import transfer_tools as tt
 
 import IPython.display
+import matplotlib.pyplot as plt
+
 
 class StyleTransferModel:
     
@@ -28,12 +30,13 @@ class StyleTransferModel:
 
         """ Creates our model with access to intermediate layers. 
 
-        This function will load the VGG19 model and access the intermediate layers. 
-        These layers will then be used to create a new model that will take input image
-        and return the outputs from these intermediate layers from the VGG model. 
+        This function will load the VGG19 model and access the intermediate 
+        layers. These layers will then be used to create a new model that will
+        take input image and return the outputs from these intermediate layers
+        from the VGG model. 
 
-        self.model is a keras model that takes image inputs and outputs the style and 
-          content intermediate layers. 
+        self.model is a keras model that takes image inputs and outputs the style 
+        and content intermediate layers. 
         """
 
         json_file = open("model.json", 'r')
@@ -42,12 +45,14 @@ class StyleTransferModel:
         model = model_from_json(loaded_model_json)
         model.load_weights("model.h5")
 
-        '''The model reads the raw image as input pixels and builds an internal representation through
-        transformations that turn the pixels into a complex understanding of the features 
-        present within the image. Convolutional neural networks capture the invariances and defining 
-        features within classes (e.g., cats vs. dogs) that are agnostic to background noise and other
-        nuances. It serves as a complex feature extractor; We can access intermediate layers to describe
-        the content and style of input images.'''
+        '''The model reads the raw image as input pixels and builds an internal
+        representation through transformations that turn the pixels into a
+        complex understanding of the features present within the image.
+        Convolutional neural networks capture the invariances and defining
+        features within classes (e.g., cats vs. dogs) that are agnostic to
+        background noise. It serves as a complex feature extractor; We can
+        access intermediate layers to describe the content and style of
+        input images.'''
         
         # Content layer where will pull our feature maps
         self.content_layers = ['block5_conv2'] 
@@ -137,7 +142,7 @@ class StyleTransferModel:
 
         # For displaying
         num_rows = 2
-        num_cols = 5
+        num_cols = 6
         display_interval = num_iterations/(num_rows*num_cols)
         start_time = time.time()
         global_start = time.time()
@@ -161,6 +166,7 @@ class StyleTransferModel:
                 best_img = tt.deprocess_img(init_image.numpy())
 
             if i % display_interval== 0:
+                print('Display If:',i)
                 start_time = time.time()
 
                 # Use the .numpy() method to get the concrete numpy array
@@ -174,6 +180,8 @@ class StyleTransferModel:
                     'style loss: {:.4e}, '
                     'content loss: {:.4e}, '
                     'time: {:.4f}s'.format(loss, style_score, content_score, time.time() - start_time))
+                
+        
         print('Total time: {:.4f}s'.format(time.time() - global_start))
         IPython.display.clear_output(wait=True)
         plt.figure(figsize=(14,4))
@@ -183,5 +191,5 @@ class StyleTransferModel:
             plt.xticks([])
             plt.yticks([])
 
-        return best_img, best_loss 
+        return imgs, best_img, best_loss 
 
