@@ -70,10 +70,7 @@ def upload_file():
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
-        
-
         stm = StyleTransferModel()
-
 
         # get content
         if request.files.get('content'):
@@ -88,18 +85,18 @@ def upload_file():
                 style_path = f'uploads/{filename}'
             except:
                 style_path = style2
-
-            imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=int(data))
-            # save the images 
-            actual_img = Image.fromarray(best)
-            file_name = 'static/result/best.png'
-            actual_img.save(file_name)
+            version = "none"
+            # imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=int(data))
+            # # save the images 
+            # actual_img = Image.fromarray(best)
+            # file_name = 'static/result/best.png'
+            # actual_img.save(file_name)
             # if filename:
             try:
-                return render_template("index.html", contentfilename=(f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data, best = file_name)
+                return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data, version = version)
             # if style2:
             except:
-                return render_template("index.html", contentfilename=(f'uploads/{contentfilename}'), filename=style2, quality=data, best = file_name)
+                return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style2, quality=data, version = version)
 
     return render_template("form.html")
 @app.route('/result',methods = ['POST', 'GET'])

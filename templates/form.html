@@ -24,7 +24,7 @@
         <h3>A Machine Learning Style Transfer Web App</h3>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" >
           
       <div class="navbar">
         <a href="/" class="active">Home</a>
@@ -32,8 +32,17 @@
         <a href="/gallery">Gallery</a>
         <a href="/" class="right">About Style Transfer</a>
       </div> <!--navbar-->
+
+      <div class="form-holder">
+        <p hidden id="content-path">{{contentfilename}}</p>
+        <p hidden id="style-path">{{filename}}</p>
+        <p hidden id="iterations">{{quality}}</p>
+        <p hidden id="best">{{best}}</p>
+        <p hidden id="version">{{version}}</p>
+      </div>
+
     <!--=======================================-->
-      <div class="row">
+      <div class="row" id="form_row">
         <!-- style selection -->
         <div class="col-4">
           <!-- iterations -->
@@ -47,7 +56,7 @@
           </div><!--iterations-->   
         </div> <!--col-4-->
  
-        <!-- contetnt selection -->
+        <!-- content selection -->
         <div class="col-4">
             <h2>Select Your Style</h2>
             <p>Select from our library or load your own!</p>
@@ -130,12 +139,13 @@
           <div class="row">
             <div class="col-4">
                 <br>
-              <h2>We Like Your Style</h2>
+              <h2 id="style_title">We Like Your Style</h2>
               <div class="iterations" style="height:60px;">
                   <h5 id="low" hidden>LOW<br>Less is more, we agree.</h5>
                   <h5 id="moderate" hidden>MODERATE<br>Goldilocks knew what she was doing, and so do you!</h5>
                   <h5 id="high" hidden>HIGH<br>Quality over quantity, we like it!</h5>
                 </div>
+               <img id="style-place-holder" src="" class="picture"> 
               <!-- style image display -->
               <div id="carouselExampleIndicators" class="carousel slide style_image" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -167,8 +177,8 @@
             
             <div class="col-4"><!--content image display -->
               <br>
-              <h2>Cool Content</h2>
-              <h5 id="cool-content">Target image for rendering</h5>
+              <h2 id="cool-content-h2"hidden>Cool Content</h2>
+              <h5 id="cool-content" hidden>Target image for rendering</h5>
               <div class="content-place-holder" >
                   <br>
                   <img id="content-place-holder" src="../static/content_images/archway.jpeg" alt="">
@@ -177,25 +187,18 @@
 
             <div class="col-4">
                 <br>
-                <h2>Result Image</h2>
-                <h5>After training the result showed this</h5>
+                <h2 id="h2_result" hidden>Result Image</h2>
+                <h5 id="h5_result" hidden>After training the result showed this</h5>
                 <div class="best-images-col" >
                   <br>
                 <img id ="best_img"src="static/result/best.png"> 
                 </div>
               </div>
 
+
           </div> <!--row-->
 
     </div> <!--container-fluid-->
-    
-    <div class="form-holder">
-      <p hidden id="content-path">{{contentfilename}}</p>
-      <p hidden id="style-path">{{filename}}</p>
-      <p hidden id="iterations">{{quality}}</p>
-      <p hidden id="best">{{best}}</p>
-    </div>
-
 
     <div class="footer">
       <h4>&copy;2019 - The Minority Majority Team</h4>

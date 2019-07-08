@@ -8,6 +8,54 @@ async function pullData() {
 
 const artData = data
 
+var version
+// if info passed through form, hide options
+version = document.getElementById("version");
+version.innerHTML = version.innerText || version.textContent;
+if (version.innerHTML) {
+
+var contentPath;
+var stylePath;
+var quality;
+
+    quality = document.getElementById("iterations");
+    quality.innerHTML = quality.innerText || quality.textContent;
+    contentPath = document.getElementById("content-path");
+    contentPath.innerHTML = contentPath.innerText || contentPath.textContent;
+    stylePath = document.getElementById("style-path")
+    stylePath.innerHTML = stylePath.innerText || stylePath.textContent;
+    // best_img
+    best = document.getElementById("best");
+    best.innerHTML = best.innerText || best.textContent;
+    console.log(quality.innerHTML)
+    console.log(contentPath.innerHTML)
+    console.log(stylePath.innerHTML)
+    console.log("running update")
+
+    document.getElementById("content-place-holder").src=contentPath.innerHTML;
+    document.getElementById("style-place-holder").src=stylePath.innerHTML;
+    document.getElementById("best_img").src=best.innerHTML;
+    document.getElementById("form_row").style.display = version.innerHTML;
+    document.getElementById("carouselExampleIndicators").style.display = version.innerHTML;
+    document.getElementById("cool-content-h2").removeAttribute("hidden")
+    document.getElementById("cool-content").removeAttribute("hidden")
+    document.getElementById("style_title").removeAttribute("hidden")
+    document.getElementById("h2_result").removeAttribute("hidden")
+    document.getElementById("h5_result").removeAttribute("hidden")
+    console.log(version.innerHTML)
+
+
+    if (quality.innerHTML == "10") {
+        document.getElementById("low").removeAttribute("hidden")
+    }
+    else if (quality.innerHTML == "100") {
+        document.getElementById("moderate").removeAttribute("hidden")
+    }
+    else {
+        document.getElementById("high").removeAttribute("hidden")
+    };
+}
+
 // read data into the table
 
 // manipulate the array
@@ -101,37 +149,15 @@ function readURLcontent(input) {
 };
 // --------------------------------------------------------------------------
 
-// upon launching of index.html
-var contentPath;
-var stylePath;
-var quality;
-function update() {
-    quality = document.getElementById("iterations");
-    quality.innerHTML = quality.innerText || quality.textContent;
-    contentPath = document.getElementById("content-path");
-    contentPath.innerHTML = contentPath.innerText || contentPath.textContent;
-    stylePath = document.getElementById("style-path")
-    stylePath.innerHTML = stylePath.innerText || stylePath.textContent;
-    // best_img
-    best = document.getElementById("best");
-    best.innerHTML = best.innerText || best.textContent;
-    console.log(quality.innerHTML)
-    console.log(contentPath.innerHTML)
-    console.log(stylePath.innerHTML)
-    console.log("running update")
 
-    document.getElementById("content-place-holder").src=contentPath.innerHTML;
-    document.getElementById("style-place-holder").src=stylePath.innerHTML;
-    document.getElementById("best_img").src=best.innerHTML;
-
-    if (quality.innerHTML == "10") {
-        document.getElementById("low").removeAttribute("hidden")
-    }
-    else if (quality.innerHTML == "100") {
-        document.getElementById("moderate").removeAttribute("hidden")
-    }
-    else {
-        document.getElementById("high").removeAttribute("hidden")
-    }
-};
 // -------------------------------------------------------------------------
+
+// onclick of 'Lets Begin'
+// const run_submit = d3.select("run_submit");
+
+// run_submit.on("click", async function(){
+//     // Prevent the page from refreshing
+//     d3.event.preventDefault();
+
+//     document.getElementById("form_row").attr("hidden", "True")
+// })

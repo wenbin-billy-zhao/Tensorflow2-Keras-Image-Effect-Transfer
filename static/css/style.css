@@ -138,3 +138,12 @@ body {
 .main {
   text-align: center
 }
+
+/* images that are uploaded */
+.picture {
+  width: 100%;
+}
+
+.col-4 {
+  text-align: center;
+}
