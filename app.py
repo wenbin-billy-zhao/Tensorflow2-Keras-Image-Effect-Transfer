@@ -16,6 +16,10 @@ from clean_up_gallery import (
     pull_files
 )
 
+from gif_generator import(
+    gif_generator
+)
+
 import json
 
 
@@ -110,6 +114,7 @@ def upload_file():
             # if filename:
             # try:
             list_of_files = cleaning()
+            gif_generator()
             return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style_path, quality=data, version = version, best=file_name)
             # if style2:
             # except:
