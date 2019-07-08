@@ -24,6 +24,30 @@
         <h3>A Machine Learning Style Transfer Web App</h3>
     </div>
 
+  <!-- insert modal -->
+
+  <script type="text/javascript">
+    $(window).on('load',function(){
+        $('#exampleModal').modal('show');
+    });
+  </script>
+
+  <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn" data-dismiss="modal">
+            <img src="static/content_images/colors-containers-contemporary-1571174.jpg" alt="" height="700" width="100%">
+            <div><h1 class="modal-title" id="exampleModalLabel">Lets get Creative</h1></div>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- exit modal -->
+
+
     <div class="container-fluid" >
           
       <div class="navbar">
@@ -133,7 +157,7 @@
       </div> <!--row-->
       <div class="row">
         <div class = "col-12" id="submit_final">
-          <input type=submit value="Let's Begin">
+          <strong><input id="submit_button"type=submit value="Let's Begin"></strong>
           </form> 
         </div><!--col-12-->
       </div><!--row-->

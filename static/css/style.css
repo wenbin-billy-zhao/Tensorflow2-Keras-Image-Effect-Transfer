@@ -6,13 +6,17 @@
 body {
   /* font-family: Arial, Helvetica, sans-serif; */
   margin: 0;
+  /* background: url("../content_images/blank-cement-concrete-984541.jpg"); */
+  background-color: white;
+  background-size: 100%;
+  background-position: top right;
 }
 
 /* Header/logo Title */
 .header {
   padding: 80px;
   text-align: center;
-  background: #137562;
+  background: url("../content_images/assorted-bright-brushes-933377.jpg");
   color: white;
 }
 
@@ -164,5 +168,10 @@ body {
 }
 
 #submit_final {
-  background-color: #191970;
+  /* background-color: hsl(300,25%,50%); */
+  background: url("../content_images/assorted-bright-brushes-933377.jpg");
+  opacity: 0.6;
+}
+#submit_button {
+  font-size: 30px;
 }

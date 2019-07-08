@@ -92,6 +92,7 @@ def upload_file():
 
         # get content
         if request.files.get('content'):
+            
             file = request.files['content']
             print(file)
             contentfilename = file.filename
@@ -104,13 +105,14 @@ def upload_file():
             except:
                 style_path = f'uploads/{name}.jpg'
             version = "none"
-            # imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=int(data))
-            # # save the images 
-            # actual_img = Image.fromarray(best)
-            # file_name_result = 'static/result/best.png'
-            # file_name_gallery = f'static/gallery/{final_img_name}.png'
-            # actual_img.save(file_name_result)
-            # actual_img.save(file_name_gallery)
+            
+            imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=int(data))
+            # save the images 
+            actual_img = Image.fromarray(best)
+            file_name_result = 'static/result/best.png'
+            file_name_gallery = f'static/gallery/{final_img_name}.png'
+            actual_img.save(file_name_result)
+            actual_img.save(file_name_gallery)
             # if filename:
             # try:
             list_of_files = cleaning()
