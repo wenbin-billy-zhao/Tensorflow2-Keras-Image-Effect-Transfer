@@ -58,6 +58,8 @@ def upload_file():
         print(request)
         # get quality
         data = request.form['quality']
+        # get unique name
+        final_img_name = request.form['final_image_input']
 
         # selected style from library
         style2 = request.form['style-library-selected']
@@ -98,6 +100,7 @@ def upload_file():
             # # save the images 
             # actual_img = Image.fromarray(best)
             # file_name = 'static/result/best.png'
+            # file_name = f'static/gallery/{final_img_name}.png'
             # actual_img.save(file_name)
             # if filename:
             try:

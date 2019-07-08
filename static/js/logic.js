@@ -42,6 +42,9 @@ var quality;
     document.getElementById("style_title").removeAttribute("hidden")
     document.getElementById("h2_result").removeAttribute("hidden")
     document.getElementById("h5_result").removeAttribute("hidden")
+    document.getElementById("form_row_submit").style.display = version.innerHTML;
+    
+
     console.log(version.innerHTML)
 
 

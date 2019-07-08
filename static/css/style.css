@@ -148,10 +148,21 @@ body {
   text-align: center;
 }
 
+.col-12 {
+  text-align: center;
+}
+.text_input {
+  text-align: center;
+}
+
 .carousel-item {
   max-height: 450px;
 }
 
 .best_img {
   width: 100%;
+}
+
+#submit_final {
+  background-color: #191970;
 }

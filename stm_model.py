@@ -211,7 +211,7 @@ class StyleTransferModel:
         # save the iterations
         for i,img in enumerate(imgs):
             actual_img = Image.fromarray(img)
-            file_name = 'static/result/nst'+str(i)+'.png'
+            file_name = 'static/12-iterations/nst'+str(i)+'.png'
             actual_img.save(file_name)
         
 
