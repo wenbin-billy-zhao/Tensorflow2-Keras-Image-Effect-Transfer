@@ -2,12 +2,17 @@ import os
 import pandas as pd
 import numpy as np
 from PIL import Image
+import urllib.request
 import time
 import tensorflow as tf
 import tensorflow.contrib.eager as tfe
 
 from stm_model import (
     StyleTransferModel
+)
+
+from clean_up_gallery import (
+    cleaning
 )
 
 import json
@@ -62,16 +67,14 @@ def upload_file():
         final_img_name = request.form['final_image_input']
 
         # selected style from library
-        style2 = request.form['style-library-selected']
-        try:
+        if request.form['style-library-selected']:
+            style2 = request.form['style-library-selected']
             artist = style2.split("/")[4]
             title = (style2.split("/")[5]).split(".")[0]
             name = f'{artist}_{title}'
             # save image
             save_image = os.path.join("uploads", f'{name}.jpg')
             urllib.request.urlretrieve(style2, save_image) #save the image from the url
-        except:
-            pass
 
         # get style
         if request.files.get('style'):
@@ -94,27 +97,30 @@ def upload_file():
             try:
                 style_path = f'uploads/{filename}'
             except:
-                style_path = style2
+                style_path = f'uploads/{name}.jpg'
             version = "none"
             # imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=int(data))
             # # save the images 
             # actual_img = Image.fromarray(best)
-            # file_name = 'static/result/best.png'
-            # file_name = f'static/gallery/{final_img_name}.png'
-            # actual_img.save(file_name)
+            # file_name_result = 'static/result/best.png'
+            # file_name_gallery = f'static/gallery/{final_img_name}.png'
+            # actual_img.save(file_name_result)
+            # actual_img.save(file_name_gallery)
             # if filename:
-            try:
-                return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data, version = version)
+            # try:
+            cleaning()
+            return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style_path, quality=data, version = version, best=file_name)
             # if style2:
-            except:
-                return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style2, quality=data, version = version)
+            # except:
+            #     pass
+            #     return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style2, quality=data, version = version)
 
     return render_template("form.html")
-@app.route('/result',methods = ['POST', 'GET'])
-def result():
-   if request.method == 'POST':
-      result = request.form
-      return render_template(".html",result = result)
+# @app.route('/result',methods = ['POST', 'GET'])
+# def result():
+#    if request.method == 'POST':
+#       result = request.form
+#       return render_template(".html",result = result)
 
 @app.route("/art_data")
 def data():
@@ -132,6 +138,10 @@ def send_file(filename):
 @app.route('/gallery')
 def gallery():
     return render_template("gallery.html")
+
+@app.route('/result')
+def result():
+    return render_template("result.html")
 
 @app.route("/run_transfer")
 def run_transfer(inputValue):
