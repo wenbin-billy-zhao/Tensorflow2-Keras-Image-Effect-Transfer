@@ -61,6 +61,7 @@ var counter2 = 0
 function styleSelect(link){
     document.getElementById("style-library-selected").value=link;
     console.log(link)
+}
 
 
 // --------------------------------------------------------------------------
@@ -111,6 +112,9 @@ function update() {
     contentPath.innerHTML = contentPath.innerText || contentPath.textContent;
     stylePath = document.getElementById("style-path")
     stylePath.innerHTML = stylePath.innerText || stylePath.textContent;
+    // best_img
+    best = document.getElementById("best");
+    best.innerHTML = best.innerText || best.textContent;
     console.log(quality.innerHTML)
     console.log(contentPath.innerHTML)
     console.log(stylePath.innerHTML)
@@ -118,6 +122,7 @@ function update() {
 
     document.getElementById("content-place-holder").src=contentPath.innerHTML;
     document.getElementById("style-place-holder").src=stylePath.innerHTML;
+    document.getElementById("best_img").src=best.innerHTML;
 
     if (quality.innerHTML == "10") {
         document.getElementById("low").removeAttribute("hidden")

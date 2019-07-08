@@ -1,15 +1,17 @@
 import os
 import pandas as pd
 import numpy as np
+from PIL import Image
 import time
 import tensorflow as tf
 import tensorflow.contrib.eager as tfe
 
-from transfer_tools import (
-    run_style_transfer
+from stm_model import (
+    StyleTransferModel
 )
 
 import json
+
 
 from flask import (
     Flask,
@@ -68,6 +70,9 @@ def upload_file():
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
+        
+
+        stm = StyleTransferModel()
 
 
         # get content
@@ -77,12 +82,24 @@ def upload_file():
             contentfilename = file.filename
 
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], contentfilename))
+
+            content_path = f'uploads/{contentfilename}'
+            try:
+                style_path = f'uploads/{filename}'
+            except:
+                style_path = style2
+
+            imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=int(data))
+            # save the images 
+            actual_img = Image.fromarray(best)
+            file_name = 'static/result/best.png'
+            actual_img.save(file_name)
             # if filename:
             try:
-                return render_template("index.html", contentfilename =( f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data)
+                return render_template("index.html", contentfilename=(f'uploads/{contentfilename}'), filename=(f'uploads/{filename}'), quality=data, best = file_name)
             # if style2:
             except:
-                return render_template("index.html", contentfilename =( f'uploads/{contentfilename}'), filename=style2, quality=data)
+                return render_template("index.html", contentfilename=(f'uploads/{contentfilename}'), filename=style2, quality=data, best = file_name)
 
     return render_template("form.html")
 @app.route('/result',methods = ['POST', 'GET'])
@@ -103,6 +120,10 @@ def data():
 @app.route('/uploads/<filename>')
 def send_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/gallery')
+def gallery():
+    return render_template("gallery.html")
 
 @app.route("/run_transfer")
 def run_transfer(inputValue):

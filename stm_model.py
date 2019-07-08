@@ -78,7 +78,7 @@ class StyleTransferModel:
  
     def run_style_transfer(self, content_path, 
                            style_path,
-                           num_iterations=1000,
+                           num_iterations,
                            content_weight=1e3, 
                            style_weight=1e-2): 
         
@@ -143,7 +143,7 @@ class StyleTransferModel:
         # For displaying
         num_rows = 2
         num_cols = 6
-        display_interval = num_iterations/(num_rows*num_cols)
+        display_interval = (num_iterations/(num_rows*num_cols))
         start_time = time.time()
         global_start = time.time()
 
@@ -152,6 +152,7 @@ class StyleTransferModel:
         max_vals = 255 - norm_means   
 
         imgs = []
+        counter = 0
         for i in range(num_iterations):
             grads, all_loss = tt.compute_grads(cfg)
             loss, style_score, content_score = all_loss
@@ -180,16 +181,39 @@ class StyleTransferModel:
                     'style loss: {:.4e}, '
                     'content loss: {:.4e}, '
                     'time: {:.4f}s'.format(loss, style_score, content_score, time.time() - start_time))
+
+            if counter== 10:
+                print('Display If:',i)
+                start_time = time.time()
+
+                # Use the .numpy() method to get the concrete numpy array
+                plot_img = init_image.numpy()
+                plot_img = tt.deprocess_img(plot_img)
+                imgs.append(plot_img)
+                IPython.display.clear_output(wait=True)
+                IPython.display.display_png(Image.fromarray(plot_img))
+                print('Iteration: {}'.format(i))        
+                print('Total loss: {:.4e}, ' 
+                    'style loss: {:.4e}, '
+                    'content loss: {:.4e}, '
+                    'time: {:.4f}s'.format(loss, style_score, content_score, time.time() - start_time))
+                counter = 0
                 
-        
+            counter =+ 1
         print('Total time: {:.4f}s'.format(time.time() - global_start))
-        IPython.display.clear_output(wait=True)
-        plt.figure(figsize=(14,4))
+        # IPython.display.clear_output(wait=True)
+        # plt.figure(figsize=(14,4))
+        # for i,img in enumerate(imgs):
+        #     plt.subplot(num_rows,num_cols,i+1)
+        #     plt.imshow(img)
+        #     plt.xticks([])
+        #     plt.yticks([])
+        # save the iterations
         for i,img in enumerate(imgs):
-            plt.subplot(num_rows,num_cols,i+1)
-            plt.imshow(img)
-            plt.xticks([])
-            plt.yticks([])
+            actual_img = Image.fromarray(img)
+            file_name = 'static/result/nst'+str(i)+'.png'
+            actual_img.save(file_name)
+        
 
         return imgs, best_img, best_loss 
 
