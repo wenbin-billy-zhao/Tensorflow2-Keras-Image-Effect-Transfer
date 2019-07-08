@@ -147,3 +147,11 @@ body {
 .col-4 {
   text-align: center;
 }
+
+.carousel-item {
+  max-height: 450px;
+}
+
+.best_img {
+  width: 100%;
+}

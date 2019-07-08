@@ -61,7 +61,15 @@ def upload_file():
 
         # selected style from library
         style2 = request.form['style-library-selected']
-        print(style2)
+        try:
+            artist = style2.split("/")[4]
+            title = (style2.split("/")[5]).split(".")[0]
+            name = f'{artist}_{title}'
+            # save image
+            save_image = os.path.join("uploads", f'{name}.jpg')
+            urllib.request.urlretrieve(style2, save_image) #save the image from the url
+        except:
+            pass
 
         # get style
         if request.files.get('style'):
