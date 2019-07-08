@@ -5,9 +5,9 @@ import time
 import tensorflow as tf
 import tensorflow.contrib.eager as tfe
 
-from transfer_tools import (
-    run_style_transfer
-)
+import transfer_tools as tt
+from stm_model import StyleTransferModel
+
 
 import json
 
@@ -34,12 +34,15 @@ app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
-# read in csv
-art_df = pd.read_csv("static/csv/artist_and_art_titles.csv")
-
 # enable eager execution
 tf.enable_eager_execution()
 print("Eager execution: {}".format(tf.executing_eagerly()))
+
+
+# read in csv
+art_df = pd.read_csv("static/csv/artist_and_art_titles.csv")
+
+stm = StyleTransferModel()
 
 
 #################################################
@@ -110,19 +113,7 @@ def run_transfer(inputValue):
     style_path  = request.args.get('style-path', None)
     iterations = request.args.get('quality', None)
 
-    # Content layer where will pull our feature maps
-    content_layers = ['block5_conv2'] 
-
-    # Style layer we are interested in
-    style_layers = ['block1_conv1',
-                    'block2_conv1',
-                    'block3_conv1', 
-                    'block4_conv1', 
-                    'block5_conv1'
-               ]
-
-    best, best_loss = run_style_transfer(imgs, content_path, 
-                                     style_path, num_iterations=3)
+    imgs, best, best_loss = stm.run_style_transfer(content_path, style_path, num_iterations=120)
 
     for i,img in enumerate(imgs):
         actual_img = Image.fromarray(img)
