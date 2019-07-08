@@ -12,7 +12,8 @@ from stm_model import (
 )
 
 from clean_up_gallery import (
-    cleaning
+    cleaning,
+    pull_files
 )
 
 import json
@@ -108,7 +109,7 @@ def upload_file():
             # actual_img.save(file_name_gallery)
             # if filename:
             # try:
-            cleaning()
+            list_of_files = cleaning()
             return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style_path, quality=data, version = version, best=file_name)
             # if style2:
             # except:
@@ -116,11 +117,10 @@ def upload_file():
             #     return render_template("form.html", contentfilename=(f'uploads/{contentfilename}'), filename=style2, quality=data, version = version)
 
     return render_template("form.html")
-# @app.route('/result',methods = ['POST', 'GET'])
-# def result():
-#    if request.method == 'POST':
-#       result = request.form
-#       return render_template(".html",result = result)
+@app.route("/gallery_images")
+def gallery_images():
+    gallery_imgs = pull_files()
+    return jsonify(gallery_imgs)
 
 @app.route("/art_data")
 def data():

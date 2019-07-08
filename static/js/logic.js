@@ -155,12 +155,20 @@ function readURLcontent(input) {
 
 // -------------------------------------------------------------------------
 
-// onclick of 'Lets Begin'
-// const run_submit = d3.select("run_submit");
+// gallery unload
+async function gallery() {
+    const url = `/gallery_images`;
+    data = await d3.json(url);
+    console.log(data);
+    const parent = d3.select("#primary_col")
+    data.forEach((file) =>{
+        column = parent.append("div")
+        column.attr("class", "col-lg-3 col-md-4 col-6")
+        image = column.append("img")
+        image.attr("class", "img-fluid img-thumbnail")
+        image.attr("src", `${file}`)
+        image.attr("alt", "")
+        console.log(file)
 
-// run_submit.on("click", async function(){
-//     // Prevent the page from refreshing
-//     d3.event.preventDefault();
-
-//     document.getElementById("form_row").attr("hidden", "True")
-// })
+    })
+}
