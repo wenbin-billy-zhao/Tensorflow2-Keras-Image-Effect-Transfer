@@ -7,7 +7,7 @@ gunicorn==19.7.1
 idna==2.8
 itsdangerous==0.24
 Jinja2==2.10
-lxml==4.3.3
+lxml==4.9.1
 MarkupSafe==1.0
 mkl-fft==1.0.6
 mkl-random==1.0.1
